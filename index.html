@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <span class="navbar-brand mb-1 h1">Weather Dashboard</span>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="row">
+                    <h2>Search for a City:</h2>
+                    <input type="text" id="citySearch">
+                    <button class="btn btn-success"><span class="fa fa-search"></span>Go!</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                        <div class="previousSearch"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="jumbotron">
+                        <h1 id="cityName"></h1>
+                        <p id="temperature">Temperature: </p>
+                        <p id="humidity">Humidity: </p>
+                        <p id="windSpeed">Wind Speed: </p>
+                        <p id="uvIndex">UV Index: </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <h5 class="card-title">5-Day Forecast:</h5>
+                </div>
+                <div class="row">
+                    <div class="card mt-2" style="width:150px;height:200px;">
+                        <div class="card-body">
+                            <div class="forecastDate">date here</div>
+                            <div class="weatherIcon">weather icon</div>
+                            <div class="tempForecast">temp info</div>
+                            <div class="humidityForecast">humidity info</div>
+                        </div>
+                    </div>
+                    <p>-</p>
+                    <div class="card mt-2" style="width:150px;height:200px;">
+                        <div class="card-body">
+                            <div class="forecastDate2">date here</div>
+                            <div class="weatherIcon2">weather icon</div>
+                            <div class="tempForecast2">temp info</div>
+                            <div class="humidityForecast2">humidity info</div>
+                        </div>
+                    </div>
+                    <p>-</p>
+                    <div class="card mt-2" style="width:150px;height:200px;">
+                        <div class="card-body">
+                            <div class="forecastDate3">date here</div>
+                            <div class="weatherIcon3">weather icon</div>
+                            <div class="tempForecast3">temp info</div>
+                            <div class="humidityForecast3">humidity info</div>
+                        </div>
+                    </div>
+                    <p>-</p>
+                    <div class="card mt-2" style="width:150px;height:200px;">
+                        <div class="card-body">
+                            <div class="forecastDate4">date here</div>
+                            <div class="weatherIcon4">weather icon</div>
+                            <div class="tempForecast4">temp info</div>
+                            <div class="humidityForecast4">humidity info</div>
+                        </div>
+                    </div>
+                    <p>-</p>
+                    <div class="card mt-2" style="width:150px;height:200px;">
+                        <div class="card-body">
+                            <div class="forecastDate5">date here</div>
+                            <div class="weatherIcon5">weather icon</div>
+                            <div class="tempForecast5">temp info</div>
+                            <div class="humidityForecast5">humidity info</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var userCitySearches = [];
+            var userCitySearch;
+
+            function displayWeatherInfo() {
+
+                var APIKey = "221028cb8f66254e19c65e04a9ab9b51";
+                var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
+                    "q=" + userCitySearch + "&units=imperial&APPID=" + APIKey;
+
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function (response) {
+                    // Methods run on jQuery selectors return the selector they we run on
+                    // This is why we can create and save a reference to a p in the same statement we update its text
+                    var cityP = $("<p>").text(response.name);
+                    var temperatureP = $("<p>").text(response.main.temp + " ℉");
+                    var humidityP = $("<p>").text(response.main.humidity + "%");
+                    var windSpeedP = $("<p>").text(response.wind.speed + " MPH");
+                    //var uvIndexP = $("<p>").text(response.Actors);
+
+                    // Append the newly created table data to the table row
+                    //$("putInfoHere").append(windSpeedTd);
+                    //tRow.append(cityTd, temperatureTd, humidityTd, windSpeedTd, uvIndexTd);
+                    // Append the table row to the table body
+                    $("#cityName").append(cityP);
+                    $("#temperature").append(temperatureP);
+                    $("#humidity").append(humidityP);
+                    $("#windSpeed").append(windSpeedP);
+                    //$("#uvIndex").append(uvIndexP);
+                });
+            }
+
+            function displayWeatherForecast() {
+                //api.openweathermap.org/data/2.5/forecast?q=
+                var APIKey = "221028cb8f66254e19c65e04a9ab9b51";
+                var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" +
+                    userCitySearch + "&units=imperial&APPID=" + APIKey;
+
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function (response) {
+                    // Methods run on jQuery selectors return the selector they we run on
+                    // This is why we can create and save a reference to a p in the same statement we update its text
+                    var dateP = $("<p>").text(response.list.dt_txt);
+                    var iconP = $("<p>").text(response.list.weather.icon);
+                    var temperatureP = $("<p>").text(response.list.main.temp + " ℉");
+                    var humidityP = $("<p>").text(response.list.main.humidity + "%");
+
+                    $("#cityName").append(cityP);
+                    $("#temperature").append(temperatureP);
+                    $("#humidity").append(humidityP);
+                    $("#windSpeed").append(windSpeedP);
+                });
+            }
+
+
+            function addPreviousSearch() {
+                $(".previousSearch").empty();
+
+                for (let i = 0; i < userCitySearches.length; i++) {
+                    var btnPreviousSearch = $("<button>")
+                    btnPreviousSearch.addClass("newCitySearch");
+                    btnPreviousSearch.attr("data-name", userCitySearches[i]);
+                    btnPreviousSearch.text(userCitySearches[i]);
+                    $(".previousSearch").prepend(btnPreviousSearch);
+                }
+            }
+
+
+            // This function handles events where one button is clicked
+            $(".btn-success").on("click", function (event) {
+                event.preventDefault();
+
+                // This line grabs the input from the textbox
+                userCitySearch = $("#citySearch").val().trim();
+                userCitySearches.push(userCitySearch);
+
+                displayWeatherInfo();
+                addPreviousSearch();
+            });
+
+
+            $(document).on("click", ".newCitySearch", displayWeatherInfo);
+        });
+    </script>
+</body>
+
+</html>
