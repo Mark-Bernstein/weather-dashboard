@@ -99,14 +99,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            
             var userCitySearches = [];
-            var userCitySearch;
+            //userCitySearches = localStorage.getItem("userInputStorage");
+            //userCitySearches = JSON.parse(userCitySearches) || [];
+            console.log("here is the storage: " + userCitySearches);
+            var userInput;
+            // var userCitySearches = [];
+            //userCitySearches.empty();
 
             function displayWeatherInfo() {
 
                 var APIKey = "221028cb8f66254e19c65e04a9ab9b51";
-                var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
-                    "q=" + userCitySearch + "&units=imperial&APPID=" + APIKey;
+                var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&units=imperial&APPID=" + APIKey;
 
                 $.ajax({
                     url: queryURL,
@@ -139,7 +144,7 @@
                 //api.openweathermap.org/data/2.5/forecast?q=
                 var APIKey = "221028cb8f66254e19c65e04a9ab9b51";
                 var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" +
-                userCitySearch + "&units=imperial&APPID=" + APIKey;
+                userInput + "&units=imperial&APPID=" + APIKey;
 
                 $.ajax({
                     url: queryURL,
@@ -147,10 +152,10 @@
                 }).then(function (response) {
                     // Methods run on jQuery selectors return the selector they we run on
                     // This is why we can create and save a reference to a p in the same statement we update its text
-                    var dateP1 = $("<p>").text(response.list[3].dt_txt);
-                    var iconP1 = $("<p>").text(response.list[3].weather.icon);
-                    var temperatureP1 = $("<p>").text("Temp: " + response.list[3].main.temp + " ℉");
-                    var humidityP1 = $("<p>").text("Humidity: " + response.list[3].main.humidity + "%");
+                    var dateP1 = $("<p>").text(response.list[2].dt_txt);
+                    var iconP1 = $("<p>").text(response.list[2].weather.icon);
+                    var temperatureP1 = $("<p>").text("Temp: " + response.list[2].main.temp + " ℉");
+                    var humidityP1 = $("<p>").text("Humidity: " + response.list[2].main.humidity + "%");
                     
                     $(".forecastDate1").empty();
                     $(".weatherIcon1").empty();
@@ -162,10 +167,10 @@
                     $(".tempForecast1").append(temperatureP1);
                     $(".humidityForecast1").append(humidityP1);
 
-                    var dateP2 = $("<p>").text(response.list[11].dt_txt);
-                    var iconP2 = $("<p>").text(response.list[11].weather.icon);
-                    var temperatureP2 = $("<p>").text("Temp: " + response.list[11].main.temp + " ℉");
-                    var humidityP2 = $("<p>").text("Humidity: " + response.list[11].main.humidity + "%");
+                    var dateP2 = $("<p>").text(response.list[10].dt_txt);
+                    var iconP2 = $("<p>").text(response.list[10].weather.icon);
+                    var temperatureP2 = $("<p>").text("Temp: " + response.list[10].main.temp + " ℉");
+                    var humidityP2 = $("<p>").text("Humidity: " + response.list[10].main.humidity + "%");
                     
                     $(".forecastDate2").empty();
                     $(".weatherIcon2").empty();
@@ -177,10 +182,10 @@
                     $(".tempForecast2").append(temperatureP2);
                     $(".humidityForecast2").append(humidityP2);
 
-                    var dateP3 = $("<p>").text(response.list[19].dt_txt);
-                    var iconP3 = $("<p>").text(response.list[19].weather.icon);
-                    var temperatureP3 = $("<p>").text("Temp: " + response.list[19].main.temp + " ℉");
-                    var humidityP3 = $("<p>").text("Humidity: " + response.list[19].main.humidity + "%");
+                    var dateP3 = $("<p>").text(response.list[18].dt_txt);
+                    var iconP3 = $("<p>").text(response.list[18].weather.icon);
+                    var temperatureP3 = $("<p>").text("Temp: " + response.list[18].main.temp + " ℉");
+                    var humidityP3 = $("<p>").text("Humidity: " + response.list[18].main.humidity + "%");
 
                     $(".forecastDate3").empty();
                     $(".weatherIcon3").empty();
@@ -192,10 +197,10 @@
                     $(".tempForecast3").append(temperatureP3);
                     $(".humidityForecast3").append(humidityP3);
 
-                    var dateP4 = $("<p>").text(response.list[27].dt_txt);
-                    var iconP4 = $("<p>").text(response.list[27].weather.icon);
-                    var temperatureP4 = $("<p>").text("Temp: " + response.list[27].main.temp + " ℉");
-                    var humidityP4 = $("<p>").text("Humidity: " + response.list[27].main.humidity + "%");
+                    var dateP4 = $("<p>").text(response.list[26].dt_txt);
+                    var iconP4 = $("<p>").text(response.list[26].weather.icon);
+                    var temperatureP4 = $("<p>").text("Temp: " + response.list[26].main.temp + " ℉");
+                    var humidityP4 = $("<p>").text("Humidity: " + response.list[26].main.humidity + "%");
                     
                     $(".forecastDate4").empty();
                     $(".weatherIcon4").empty();
@@ -207,10 +212,10 @@
                     $(".tempForecast4").append(temperatureP4);
                     $(".humidityForecast4").append(humidityP4);
 
-                    var dateP5 = $("<p>").text(response.list[35].dt_txt);
-                    var iconP5 = $("<p>").text(response.list[35].weather.icon);
-                    var temperatureP5 = $("<p>").text("Temp: " + response.list[35].main.temp + " ℉");
-                    var humidityP5 = $("<p>").text("Humidity: " + response.list[35].main.humidity + "%");
+                    var dateP5 = $("<p>").text(response.list[34].dt_txt);
+                    var iconP5 = $("<p>").text(response.list[34].weather.icon);
+                    var temperatureP5 = $("<p>").text("Temp: " + response.list[34].main.temp + " ℉");
+                    var humidityP5 = $("<p>").text("Humidity: " + response.list[34].main.humidity + "%");
 
                     $(".forecastDate5").empty();
                     $(".weatherIcon5").empty();
@@ -228,7 +233,10 @@
             function addPreviousSearch() {
                 $(".previousSearch").empty();
 
-                for (let i = 0; i < userCitySearches.length; i++) {
+                for (var i = 0; i < userCitySearches.length; i++) {
+                    var buttonArray = [];
+                    buttonArray = userCitySearches[i];
+
                     var btnPreviousSearch = $("<button style='width:200px'>")
                     btnPreviousSearch.addClass("newCitySearch");
                     btnPreviousSearch.attr("data-name", userCitySearches[i]);
@@ -243,27 +251,26 @@
                 event.preventDefault();
 
                 // This line grabs the input from the textbox
-                userCitySearch = $(this).attr("data-name");
+                userInput = $(this).attr("data-name");
 
                 displayWeatherInfo();
                 displayWeatherForecast();
             });
 
-            // This function handles events where one button is clicked
+    
             $(".btn-success").on("click", function (event) {
                 event.preventDefault();
 
                 // This line grabs the input from the textbox
-                userCitySearch = $("#citySearch").val().trim();
-                userCitySearches.push(userCitySearch);
+                userInput = $("#citySearch").val().trim();
+                userCitySearches.push(userInput);
+                localStorage.setItem("userInputStorage", JSON.stringify(userCitySearches));
+                console.log(userCitySearches);
 
                 displayWeatherInfo();
                 displayWeatherForecast();
                 addPreviousSearch();
             });
-
-
-
 
             $(document).on("click", ".newCitySearch", displayWeatherInfo);
         });
