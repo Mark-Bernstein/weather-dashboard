@@ -1,3 +1,13 @@
 p {
     float: left;
 }
+
+.previousSearch {
+    padding: 10px;
+    margin: auto;
+}
+
+.card-body {
+    color:white;
+    background-color: blue;
+}

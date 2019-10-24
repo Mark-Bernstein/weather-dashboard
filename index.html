@@ -37,10 +37,10 @@
                 <div class="row">
                     <div class="jumbotron">
                         <h1 id="cityName"></h1>
-                        <p id="temperature">Temperature: </p>
-                        <p id="humidity">Humidity: </p>
-                        <p id="windSpeed">Wind Speed: </p>
-                        <p id="uvIndex">UV Index: </p>
+                        <p id="temperature"></p>
+                        <p id="humidity"></p>
+                        <p id="windSpeed"></p>
+                        <p id="uvIndex"></p>
                     </div>
                 </div>
                 <div class="row">
@@ -48,8 +48,8 @@
                 </div>
                 <div class="row">
                     <div class="card mt-2" style="width:150px;height:200px;">
-                        <div class="card-body">
-                            <div class="forecastDate1"></div>
+                        <div class="card-body" style="color:white;background-color: rgb(55, 58, 255);">
+                            <div class="forecastDate1" ></div>
                             <div class="weatherIcon1"></div>
                             <div class="tempForecast1"></div>
                             <div class="humidityForecast1"></div>
@@ -57,7 +57,7 @@
                     </div>
                     <p>-</p>
                     <div class="card mt-2" style="width:150px;height:200px;">
-                        <div class="card-body">
+                        <div class="card-body" style="color:white;background-color: rgb(55, 58, 255);">
                             <div class="forecastDate2"></div>
                             <div class="weatherIcon2"></div>
                             <div class="tempForecast2"></div>
@@ -66,7 +66,7 @@
                     </div>
                     <p>-</p>
                     <div class="card mt-2" style="width:150px;height:200px;">
-                        <div class="card-body">
+                        <div class="card-body" style="color:white;background-color: rgb(55, 58, 255);">
                             <div class="forecastDate3"></div>
                             <div class="weatherIcon3"></div>
                             <div class="tempForecast3"></div>
@@ -75,7 +75,7 @@
                     </div>
                     <p>-</p>
                     <div class="card mt-2" style="width:150px;height:200px;">
-                        <div class="card-body">
+                        <div class="card-body" style="color:white;background-color: rgb(55, 58, 255);">
                             <div class="forecastDate4"></div>
                             <div class="weatherIcon4"></div>
                             <div class="tempForecast4"></div>
@@ -84,7 +84,7 @@
                     </div>
                     <p>-</p>
                     <div class="card mt-2" style="width:150px;height:200px;">
-                        <div class="card-body">
+                        <div class="card-body" style="color:white;background-color: rgb(55, 58, 255);">
                             <div class="forecastDate5"></div>
                             <div class="weatherIcon5"></div>
                             <div class="tempForecast5"></div>
@@ -116,15 +116,17 @@
                     // This is why we can create and save a reference to a p in the same statement we update its text
                     var cityP = $("<p>").text(response.name + " (Today)");
             
-                    var temperatureP = $("<p style='float:right;'>").text(response.main.temp + " ℉");
-                    var humidityP = $("<p style='float:right;'>").text(response.main.humidity + "%");
-                    var windSpeedP = $("<p style='float:right;'>").text(response.wind.speed + " MPH");
-                    //var uvIndexP = $("<p style='float:right;'>").text(response.Actors);
+                    var temperatureP = $("<p>").text("Temperature: " + response.main.temp + " ℉");
+                    var humidityP = $("<p>").text("Humidity: " + response.main.humidity + "%");
+                    var windSpeedP = $("<p>").text("Wind Speed: " + response.wind.speed + " MPH");
+                    //var uvIndexP = $("<p>").text("Temperature: " + response.Actors);
 
-                    // Append the newly created table data to the table row
-                    //$("putInfoHere").append(windSpeedTd);
-                    //tRow.append(cityTd, temperatureTd, humidityTd, windSpeedTd, uvIndexTd);
-                    // Append the table row to the table body
+                    $("#cityName").empty();
+                    $("#temperature").empty();
+                    $("#humidity").empty();
+                    $("#windSpeed").empty();
+                    $("#uvIndex").empty();
+
                     $("#cityName").append(cityP);
                     $("#temperature").append(temperatureP);
                     $("#humidity").append(humidityP);
@@ -139,7 +141,6 @@
                 var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" +
                 userCitySearch + "&units=imperial&APPID=" + APIKey;
 
-
                 $.ajax({
                     url: queryURL,
                     method: "GET"
@@ -150,6 +151,11 @@
                     var iconP1 = $("<p>").text(response.list[3].weather.icon);
                     var temperatureP1 = $("<p>").text("Temp: " + response.list[3].main.temp + " ℉");
                     var humidityP1 = $("<p>").text("Humidity: " + response.list[3].main.humidity + "%");
+                    
+                    $(".forecastDate1").empty();
+                    $(".weatherIcon1").empty();
+                    $(".tempForecast1").empty();
+                    $(".humidityForecast1").empty();
 
                     $(".forecastDate1").append(dateP1);
                     $(".weatherIcon1").append(iconP1);
@@ -160,6 +166,11 @@
                     var iconP2 = $("<p>").text(response.list[11].weather.icon);
                     var temperatureP2 = $("<p>").text("Temp: " + response.list[11].main.temp + " ℉");
                     var humidityP2 = $("<p>").text("Humidity: " + response.list[11].main.humidity + "%");
+                    
+                    $(".forecastDate2").empty();
+                    $(".weatherIcon2").empty();
+                    $(".tempForecast2").empty();
+                    $(".humidityForecast2").empty();
 
                     $(".forecastDate2").append(dateP2);
                     $(".weatherIcon2").append(iconP2);
@@ -171,6 +182,11 @@
                     var temperatureP3 = $("<p>").text("Temp: " + response.list[19].main.temp + " ℉");
                     var humidityP3 = $("<p>").text("Humidity: " + response.list[19].main.humidity + "%");
 
+                    $(".forecastDate3").empty();
+                    $(".weatherIcon3").empty();
+                    $(".tempForecast3").empty();
+                    $(".humidityForecast3").empty();
+
                     $(".forecastDate3").append(dateP3);
                     $(".weatherIcon3").append(iconP3);
                     $(".tempForecast3").append(temperatureP3);
@@ -180,6 +196,11 @@
                     var iconP4 = $("<p>").text(response.list[27].weather.icon);
                     var temperatureP4 = $("<p>").text("Temp: " + response.list[27].main.temp + " ℉");
                     var humidityP4 = $("<p>").text("Humidity: " + response.list[27].main.humidity + "%");
+                    
+                    $(".forecastDate4").empty();
+                    $(".weatherIcon4").empty();
+                    $(".tempForecast4").empty();
+                    $(".humidityForecast4").empty();
 
                     $(".forecastDate4").append(dateP4);
                     $(".weatherIcon4").append(iconP4);
@@ -190,6 +211,11 @@
                     var iconP5 = $("<p>").text(response.list[35].weather.icon);
                     var temperatureP5 = $("<p>").text("Temp: " + response.list[35].main.temp + " ℉");
                     var humidityP5 = $("<p>").text("Humidity: " + response.list[35].main.humidity + "%");
+
+                    $(".forecastDate5").empty();
+                    $(".weatherIcon5").empty();
+                    $(".tempForecast5").empty();
+                    $(".humidityForecast5").empty();
 
                     $(".forecastDate5").append(dateP5);
                     $(".weatherIcon5").append(iconP5);
@@ -203,14 +229,25 @@
                 $(".previousSearch").empty();
 
                 for (let i = 0; i < userCitySearches.length; i++) {
-                    var btnPreviousSearch = $("<button>")
+                    var btnPreviousSearch = $("<button style='width:200px'>")
                     btnPreviousSearch.addClass("newCitySearch");
                     btnPreviousSearch.attr("data-name", userCitySearches[i]);
                     btnPreviousSearch.text(userCitySearches[i]);
                     $(".previousSearch").prepend(btnPreviousSearch);
                 }
             }
+            ///////////////////////////////////////////////////////////////////////////////////////
+            // GET THIS WORKINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+            ///////////////////////////////////////////////////////////////////////////////////////
+            $(".newCitySearch").on("click", function (event) {
+                event.preventDefault();
 
+                // This line grabs the input from the textbox
+                userCitySearch = $(this).attr("data-name");
+
+                displayWeatherInfo();
+                displayWeatherForecast();
+            });
 
             // This function handles events where one button is clicked
             $(".btn-success").on("click", function (event) {
@@ -224,6 +261,8 @@
                 displayWeatherForecast();
                 addPreviousSearch();
             });
+
+
 
 
             $(document).on("click", ".newCitySearch", displayWeatherInfo);
