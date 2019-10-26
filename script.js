@@ -183,4 +183,8 @@ $(document).ready(function () {
     $("#clearBtn").on("click", function (event) {
         localStorage.clear();
     });
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> db4cd272b7846fa22d52964088d5d652df012fc3
