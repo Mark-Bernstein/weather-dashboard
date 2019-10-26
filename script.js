@@ -27,6 +27,7 @@ $(document).ready(function () {
                 url: uvIndexQueryURL,
                 method: "GET"
             }).then(function (UVresponse) {
+                $("#uvIndex").empty();
                 $("#uvIndex").text("UV Index: " + UVresponse.value);
             });
             var cityP = $("<p>").text(response.name + " (Today)");
@@ -37,7 +38,6 @@ $(document).ready(function () {
             $("#temperature").empty();
             $("#humidity").empty();
             $("#windSpeed").empty();
-            $("#uvIndex").empty();
             $("#cityName").append(cityP);
             $("#temperature").append(temperatureP);
             $("#humidity").append(humidityP);
