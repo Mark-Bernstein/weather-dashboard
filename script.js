@@ -27,7 +27,6 @@ $(document).ready(function () {
                 url: uvIndexQueryURL,
                 method: "GET"
             }).then(function (UVresponse) {
-                $("#uvIndex").empty();
                 $("#uvIndex").text("UV Index: " + UVresponse.value);
             });
             var cityP = $("<p>").text(response.name + " (Today)");
