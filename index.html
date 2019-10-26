@@ -24,11 +24,13 @@
                     <h2>Search for a City:</h2>
                     <input type="text" id="citySearch">
                     <button class="btn btn-success"><span class="fa fa-search"></span>Go!</button>
+                    <button id="clearBtn">Clear Search History</button>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <hr>
-                        <div class="previousSearch"></div>
+                        <!-- <div class="list-group" id="search-list"></div> -->
+                        <div class="previousSearchList"></div>
                     </div>
                 </div>
             </div>
@@ -49,7 +51,7 @@
                 <div class="row">
                     <div class="card mt-2" style="width:150px;height:200px;">
                         <div class="card-body" style="color:white;background-color: rgb(55, 58, 255);">
-                            <div class="forecastDate1" ></div>
+                            <div class="forecastDate1"></div>
                             <div class="weatherIcon1"></div>
                             <div class="tempForecast1"></div>
                             <div class="humidityForecast1"></div>
@@ -99,20 +101,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            
+            var APIKey = "221028cb8f66254e19c65e04a9ab9b51";
             var userCitySearches = [];
-            //userCitySearches = localStorage.getItem("userInputStorage");
-            //userCitySearches = JSON.parse(userCitySearches) || [];
-            console.log("here is the storage: " + userCitySearches);
+            userCitySearches = localStorage.getItem("userInputStorage");
+            userCitySearches = JSON.parse(userCitySearches) || [];
+            renderSearchHistory()
             var userInput;
-            // var userCitySearches = [];
-            //userCitySearches.empty();
 
             function displayWeatherInfo() {
-
-                var APIKey = "221028cb8f66254e19c65e04a9ab9b51";
                 var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&units=imperial&APPID=" + APIKey;
-
                 $.ajax({
                     url: queryURL,
                     method: "GET"
@@ -120,160 +117,164 @@
                     // Methods run on jQuery selectors return the selector they we run on
                     // This is why we can create and save a reference to a p in the same statement we update its text
                     var cityP = $("<p>").text(response.name + " (Today)");
-            
                     var temperatureP = $("<p>").text("Temperature: " + response.main.temp + " ℉");
                     var humidityP = $("<p>").text("Humidity: " + response.main.humidity + "%");
                     var windSpeedP = $("<p>").text("Wind Speed: " + response.wind.speed + " MPH");
-                    //var uvIndexP = $("<p>").text("Temperature: " + response.Actors);
-
                     $("#cityName").empty();
                     $("#temperature").empty();
                     $("#humidity").empty();
                     $("#windSpeed").empty();
                     $("#uvIndex").empty();
-
                     $("#cityName").append(cityP);
                     $("#temperature").append(temperatureP);
                     $("#humidity").append(humidityP);
                     $("#windSpeed").append(windSpeedP);
-                    //$("#uvIndex").append(uvIndexP);
                 });
             }
 
             function displayWeatherForecast() {
                 //api.openweathermap.org/data/2.5/forecast?q=
-                var APIKey = "221028cb8f66254e19c65e04a9ab9b51";
                 var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" +
-                userInput + "&units=imperial&APPID=" + APIKey;
-
+                    userInput + "&units=imperial&APPID=" + APIKey;
                 $.ajax({
                     url: queryURL,
                     method: "GET"
                 }).then(function (response) {
-                    // Methods run on jQuery selectors return the selector they we run on
-                    // This is why we can create and save a reference to a p in the same statement we update its text
-                    var dateP1 = $("<p>").text(response.list[2].dt_txt);
-                    var iconP1 = $("<p>").text(response.list[2].weather.icon);
-                    var temperatureP1 = $("<p>").text("Temp: " + response.list[2].main.temp + " ℉");
-                    var humidityP1 = $("<p>").text("Humidity: " + response.list[2].main.humidity + "%");
-                    
+                    //day 1
+                    var dateP1 = $("<p>").text(response.list[3].dt_txt);
+                    var weatherIcon1 = response.list[3].weather[0].icon;
+                    var weatherIconImg1 = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + weatherIcon1 + "@2x.png");
+                    var temperatureP1 = $("<p>").text("Temp: " + response.list[3].main.temp + " ℉");
+                    var humidityP1 = $("<p>").text("Humidity: " + response.list[3].main.humidity + "%");
                     $(".forecastDate1").empty();
                     $(".weatherIcon1").empty();
                     $(".tempForecast1").empty();
                     $(".humidityForecast1").empty();
-
                     $(".forecastDate1").append(dateP1);
-                    $(".weatherIcon1").append(iconP1);
+                    $(".weatherIcon1").append(weatherIconImg1);
                     $(".tempForecast1").append(temperatureP1);
                     $(".humidityForecast1").append(humidityP1);
 
-                    var dateP2 = $("<p>").text(response.list[10].dt_txt);
-                    var iconP2 = $("<p>").text(response.list[10].weather.icon);
-                    var temperatureP2 = $("<p>").text("Temp: " + response.list[10].main.temp + " ℉");
-                    var humidityP2 = $("<p>").text("Humidity: " + response.list[10].main.humidity + "%");
-                    
+                    //day 2
+                    var dateP2 = $("<p>").text(response.list[11].dt_txt);
+                    var weatherIcon2 = response.list[11].weather[0].icon;
+                    var weatherIconImg2 = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + weatherIcon2 + "@2x.png");
+                    var temperatureP2 = $("<p>").text("Temp: " + response.list[11].main.temp + " ℉");
+                    var humidityP2 = $("<p>").text("Humidity: " + response.list[11].main.humidity + "%");
                     $(".forecastDate2").empty();
                     $(".weatherIcon2").empty();
                     $(".tempForecast2").empty();
                     $(".humidityForecast2").empty();
-
                     $(".forecastDate2").append(dateP2);
-                    $(".weatherIcon2").append(iconP2);
+                    $(".weatherIcon2").append(weatherIconImg2);
                     $(".tempForecast2").append(temperatureP2);
                     $(".humidityForecast2").append(humidityP2);
 
-                    var dateP3 = $("<p>").text(response.list[18].dt_txt);
-                    var iconP3 = $("<p>").text(response.list[18].weather.icon);
-                    var temperatureP3 = $("<p>").text("Temp: " + response.list[18].main.temp + " ℉");
-                    var humidityP3 = $("<p>").text("Humidity: " + response.list[18].main.humidity + "%");
-
+                    //day 3
+                    var dateP3 = $("<p>").text(response.list[19].dt_txt);
+                    var weatherIcon3 = response.list[19].weather[0].icon;
+                    var weatherIconImg3 = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + weatherIcon3 + "@2x.png");
+                    var temperatureP3 = $("<p>").text("Temp: " + response.list[19].main.temp + " ℉");
+                    var humidityP3 = $("<p>").text("Humidity: " + response.list[19].main.humidity + "%");
                     $(".forecastDate3").empty();
                     $(".weatherIcon3").empty();
                     $(".tempForecast3").empty();
                     $(".humidityForecast3").empty();
-
                     $(".forecastDate3").append(dateP3);
-                    $(".weatherIcon3").append(iconP3);
+                    $(".weatherIcon3").append(weatherIconImg3);
                     $(".tempForecast3").append(temperatureP3);
                     $(".humidityForecast3").append(humidityP3);
 
-                    var dateP4 = $("<p>").text(response.list[26].dt_txt);
-                    var iconP4 = $("<p>").text(response.list[26].weather.icon);
-                    var temperatureP4 = $("<p>").text("Temp: " + response.list[26].main.temp + " ℉");
-                    var humidityP4 = $("<p>").text("Humidity: " + response.list[26].main.humidity + "%");
-                    
+                    //day 4
+                    var dateP4 = $("<p>").text(response.list[27].dt_txt);
+                    var weatherIcon4 = response.list[27].weather[0].icon;
+                    var weatherIconImg4 = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + weatherIcon4 + "@2x.png");
+                    var temperatureP4 = $("<p>").text("Temp: " + response.list[27].main.temp + " ℉");
+                    var humidityP4 = $("<p>").text("Humidity: " + response.list[27].main.humidity + "%");
                     $(".forecastDate4").empty();
                     $(".weatherIcon4").empty();
                     $(".tempForecast4").empty();
                     $(".humidityForecast4").empty();
-
                     $(".forecastDate4").append(dateP4);
-                    $(".weatherIcon4").append(iconP4);
+                    $(".weatherIcon4").append(weatherIconImg4);
                     $(".tempForecast4").append(temperatureP4);
                     $(".humidityForecast4").append(humidityP4);
 
-                    var dateP5 = $("<p>").text(response.list[34].dt_txt);
-                    var iconP5 = $("<p>").text(response.list[34].weather.icon);
-                    var temperatureP5 = $("<p>").text("Temp: " + response.list[34].main.temp + " ℉");
-                    var humidityP5 = $("<p>").text("Humidity: " + response.list[34].main.humidity + "%");
-
+                    //day 5
+                    var dateP5 = $("<p>").text(response.list[35].dt_txt);
+                    var weatherIcon5 = response.list[35].weather[0].icon;
+                    var weatherIconImg5 = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + weatherIcon5 + "@2x.png");
+                    var temperatureP5 = $("<p>").text("Temp: " + response.list[35].main.temp + " ℉");
+                    var humidityP5 = $("<p>").text("Humidity: " + response.list[35].main.humidity + "%");
                     $(".forecastDate5").empty();
                     $(".weatherIcon5").empty();
                     $(".tempForecast5").empty();
                     $(".humidityForecast5").empty();
-
                     $(".forecastDate5").append(dateP5);
-                    $(".weatherIcon5").append(iconP5);
+                    $(".weatherIcon5").append(weatherIconImg5);
                     $(".tempForecast5").append(temperatureP5);
                     $(".humidityForecast5").append(humidityP5);
                 });
             }
-
-
             function addPreviousSearch() {
-                $(".previousSearch").empty();
+                //$(".previousSearchList").empty();
+                var btnPreviousSearch = $("<button>")
+                btnPreviousSearch.addClass("search list-group-item list-group-item-action");
+                btnPreviousSearch.attr("data-name", userInput);
+                btnPreviousSearch.text(userInput);
+                $(".previousSearchList").prepend(btnPreviousSearch);
+                //renderSearchHistory()
+            }
+
+            function renderSearchHistory() {
+                console.log(userCitySearches);
 
                 for (var i = 0; i < userCitySearches.length; i++) {
-                    var buttonArray = [];
-                    buttonArray = userCitySearches[i];
-
-                    var btnPreviousSearch = $("<button style='width:200px'>")
-                    btnPreviousSearch.addClass("newCitySearch");
-                    btnPreviousSearch.attr("data-name", userCitySearches[i]);
-                    btnPreviousSearch.text(userCitySearches[i]);
-                    $(".previousSearch").prepend(btnPreviousSearch);
+                    // $("#search-list").empty();
+                    var button = $("<button>");
+                    button.addClass("search list-group-item list-group-item-action");
+                    button.text(userCitySearches[i]);
+                    $(".previousSearchList").prepend(button);
                 }
             }
+
+
             ///////////////////////////////////////////////////////////////////////////////////////
             // GET THIS WORKINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
             ///////////////////////////////////////////////////////////////////////////////////////
-            $(".newCitySearch").on("click", function (event) {
+            $(".search list-group-item list-group-item-action").on("click", function (event) {
                 event.preventDefault();
-
                 // This line grabs the input from the textbox
                 userInput = $(this).attr("data-name");
-
                 displayWeatherInfo();
                 displayWeatherForecast();
             });
-
-    
             $(".btn-success").on("click", function (event) {
                 event.preventDefault();
 
                 // This line grabs the input from the textbox
                 userInput = $("#citySearch").val().trim();
-                userCitySearches.push(userInput);
-                localStorage.setItem("userInputStorage", JSON.stringify(userCitySearches));
-                console.log(userCitySearches);
 
-                displayWeatherInfo();
-                displayWeatherForecast();
-                addPreviousSearch();
+                if ((userInput === null) || (userInput === "")) {
+                    console.log("There was no user input.");
+                    return;
+                } else {
+                    userCitySearches.push(userInput);
+                    localStorage.setItem("userInputStorage", JSON.stringify(userCitySearches));
+                    console.log(userCitySearches);
+                    displayWeatherInfo();
+                    displayWeatherForecast();
+                    addPreviousSearch();
+                }
             });
-
-            $(document).on("click", ".newCitySearch", displayWeatherInfo);
+            $(document).on("click", ".search list-group-item list-group-item-action", displayWeatherInfo);
         });
+
+        //clears history (buttons go away!)
+        $("#clearBtn").on("click", function (event) {
+            localStorage.clear();
+        });
+        
     </script>
 </body>
 
