@@ -34,10 +34,12 @@ $(document).ready(function () {
             var temperatureP = $("<p>").text("Temperature: " + response.main.temp + " ℉");
             var humidityP = $("<p>").text("Humidity: " + response.main.humidity + "%");
             var windSpeedP = $("<p>").text("Wind Speed: " + response.wind.speed + " MPH");
+            
             $("#cityName").empty();
             $("#temperature").empty();
             $("#humidity").empty();
             $("#windSpeed").empty();
+
             $("#cityName").append(cityP);
             $("#temperature").append(temperatureP);
             $("#humidity").append(humidityP);
@@ -65,14 +67,14 @@ $(document).ready(function () {
         $(".weatherIcon1").empty();
         $(".tempForecast1").empty();
         $(".humidityForecast1").empty();
+
         $(".forecastDate1").append(dateP1);
         $(".weatherIcon1").append(weatherIconImg1);
         $(".tempForecast1").append(temperatureP1);
         $(".humidityForecast1").append(humidityP1);
 
         var weatherIconToday = response.list[3].weather[0].icon;
-        var weatherIconTodayImage = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + weatherIconToday + "@2x.png"
-        );
+        var weatherIconTodayImage = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + weatherIconToday + "@2x.png");
         $("#weatherIcon").empty();
         $("#weatherIcon").append(weatherIconTodayImage);
         //day 2
@@ -85,6 +87,7 @@ $(document).ready(function () {
         $(".weatherIcon2").empty();
         $(".tempForecast2").empty();
         $(".humidityForecast2").empty();
+
         $(".forecastDate2").append(dateP2);
         $(".weatherIcon2").append(weatherIconImg2);
         $(".tempForecast2").append(temperatureP2);
@@ -99,6 +102,7 @@ $(document).ready(function () {
         $(".weatherIcon3").empty();
         $(".tempForecast3").empty();
         $(".humidityForecast3").empty();
+
         $(".forecastDate3").append(dateP3);
         $(".weatherIcon3").append(weatherIconImg3);
         $(".tempForecast3").append(temperatureP3);
@@ -113,6 +117,7 @@ $(document).ready(function () {
         $(".weatherIcon4").empty();
         $(".tempForecast4").empty();
         $(".humidityForecast4").empty();
+
         $(".forecastDate4").append(dateP4);
         $(".weatherIcon4").append(weatherIconImg4);
         $(".tempForecast4").append(temperatureP4);
@@ -127,6 +132,7 @@ $(document).ready(function () {
         $(".weatherIcon5").empty();
         $(".tempForecast5").empty();
         $(".humidityForecast5").empty();
+
         $(".forecastDate5").append(dateP5);
         $(".weatherIcon5").append(weatherIconImg5);
         $(".tempForecast5").append(temperatureP5);
