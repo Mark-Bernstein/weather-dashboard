@@ -39,6 +39,7 @@
                 <div class="row">
                     <div class="jumbotron">
                         <h1 id="cityName"></h1>
+                        <div id="weatherIcon"></div>
                         <p id="temperature"></p>
                         <p id="humidity"></p>
                         <p id="windSpeed"></p>
@@ -172,10 +173,12 @@
                 $(".weatherIcon1").empty();
                 $(".tempForecast1").empty();
                 $(".humidityForecast1").empty();
+                $("#weatherIcon").empty();
                 $(".forecastDate1").append(dateP1);
                 $(".weatherIcon1").append(weatherIconImg1);
                 $(".tempForecast1").append(temperatureP1);
                 $(".humidityForecast1").append(humidityP1);
+                $("#weatherIcon").append(weatherIconImg1);
                 //day 2
                 var dateP2 = $("<p>").text(response.list[11].dt_txt);
                 var weatherIcon2 = response.list[11].weather[0].icon;
