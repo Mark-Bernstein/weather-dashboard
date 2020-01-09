@@ -3,4 +3,9 @@ This weather dashboard project was built for the UCSD web development bootcamp p
 
 Code languages used: JavaScript, CSS, jQuery.
 
+
+**Screenshot**
+
+![Weather_Dashboard Screenshot](/weatherDashboardScreenshot.jpg)
+
 No installation necessary. Project is hosted here: https://mark-bernstein.github.io/weather-dashboard/
