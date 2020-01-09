@@ -20,7 +20,7 @@ $(document).ready(function () {
             var cityLat = "lat=" + response.coord.lat;
             var cityLon = "lon=" + response.coord.lon;
             var uvIndexQueryURL =
-                "http://api.openweathermap.org/data/2.5/uvi?" +
+                "https://api.openweathermap.org/data/2.5/uvi?" +
                 "&APPID=" + APIKey + "&" + cityLat + "&" + cityLon;
             //call the UV index api
             $.ajax({
